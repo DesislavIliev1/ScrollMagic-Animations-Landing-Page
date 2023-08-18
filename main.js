@@ -1,64 +1,37 @@
 
   
 $(function(){
-
-    // Scroll trigger register
+    
+// Scroll trigger register
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.set('.cube',{yPercent: -20});
-
-    var rotate = gsap.timeline({
-      scrollTrigger:{
-        trigger: ".section-4",
-        
-        scrub:0.5,
-        start: 'top top',
-        end: 'bottom top  ' 
-        }
-    })
-    .to('.cube', {
-      rotation:360*2,
-      duration:1, ease:'none',
-    })
     
+    //3d cube rotation on scrolling
+    cubeRotation();
 
-      // navbar color changing animation
-    gsap.to(".navbar",{
-        backgroundColor:'#63277a' ,
-        ease: "linear",
-        duration:1,
-        scrollTrigger : {
-            trigger:".section-1",
-            start: "top",
-            toggleActions:"play restart restart reverse"
-        }
-    })
-    
-    gsap.to(".navbar",{
-        backgroundColor:"#613386" ,
-        ease: "linear",
-        duration:1,
-       scrollTrigger : {
-            trigger:".section-2",
-            start: "top",
-            toggleActions:"resume pause restart reverse",
-        }
-    })          
-
-    gsap.to(".navbar",{
-        backgroundColor:"#8555ac" ,
-        ease:"linear",
-        duration:2,
-        scrub:1,
-        scrollTrigger : {
-            trigger:".section-3",
-            start: "top 80%",
-            toggleActions:"play pause restart reverse",}
-        }) 
-
+     // navbar color changing animation
+    navbarColorChange();
 
     //header parallax efect animation
-    // different images different parameters
+   // different images different parameters
+    navbarParallax();
+
+ //grid of images fade out animation
+    imagesFade();
+
+ //bear scale pinned animation
+    bearZoom();
+
+     //text animation 
+    textAnimation();
+
+    // footer control animation panel with buttons
+    footerController();
+    
+
+})
+
+function navbarParallax(){
     gsap.to(".bg",{
         scrollTrigger : {
             scrub: 1 
@@ -101,8 +74,66 @@ $(function(){
         y : 200
     })
     
+
+}
+
+function cubeRotation(){
+
+    gsap.registerPlugin(ScrollTrigger) 
+
+    gsap.set('.cube',{yPercent: -20});
+
+    var rotate = gsap.timeline({
+      scrollTrigger:{
+        trigger: ".section-4",
+        
+        scrub:0.5,
+        start: 'top top',
+        end: 'bottom top  ' 
+        }
+    })
+    .to('.cube', {
+      rotation:360*2,
+      duration:1, ease:'none',
+    })
+}
+
+function navbarColorChange(){
+    gsap.to(".navbar",{
+        backgroundColor:'#63277a' ,
+        ease: "linear",
+        duration:1,
+        scrollTrigger : {
+            trigger:".section-1",
+            start: "top",
+            toggleActions:"play restart restart reverse"
+        }
+    })
     
-   //grid of images fade out animation
+    gsap.to(".navbar",{
+        backgroundColor:"#613386" ,
+        ease: "linear",
+        duration:1,
+       scrollTrigger : {
+            trigger:".section-2",
+            start: "top",
+            toggleActions:"resume pause restart reverse",
+        }
+    })          
+
+    gsap.to(".navbar",{
+        backgroundColor:"#8555ac" ,
+        ease:"linear",
+        duration:2,
+        scrub:1,
+        scrollTrigger : {
+            trigger:".section-3",
+            start: "top 80%",
+            toggleActions:"play pause restart reverse",}
+        }) 
+}
+
+function imagesFade(){
     gsap.to(".img-1",{
         scrollTrigger : {
             trigger:".section-1",
@@ -173,39 +204,37 @@ $(function(){
 
     })   
 
+}
 
-    //bear scale pinned 
+function bearZoom(){
     var images = gsap.utils.toArray(".section-2 .bear");
-  images.forEach((image, i) => {
-  gsap.fromTo(
-    image,
-    { scale: 0.7 },
-    {
-      scale: 1.2,
-      ease: "none",
-      force3D: true,
-      scrollTrigger: {
-        pin:jQuery(image).parent(),
-        trigger: jQuery(image).parent(),
-        start: "top top",
-        end: "bottom top",
-        scrub: 0.5,
-        
+    images.forEach((image, i) => {
+    gsap.fromTo(
+      image,
+      { scale: 0.7 },
+      {
+        scale: 1.2,
+        ease: "none",
+        force3D: true,
+        scrollTrigger: {
+          pin:jQuery(image).parent(),
+          trigger: jQuery(image).parent(),
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.5,
+          
+        }
       }
-    }
-  );
+    );
+  
+  
+  })
+
+}
 
 
-})
-    
-    
-    
-
-
-// footer control animation panel with buttons
-   
-
-      $(".btn-1").on("click", function() {
+function footerController(){
+    $(".btn-1").on("click", function() {
         gsap.to(window, {
             scrollTo: ".header" ,
     });
@@ -234,10 +263,10 @@ $(function(){
             scrollTo: ".section-4" ,
     });
       });
+}
 
-
-      //text animation 
-const splitTypes = document.querySelectorAll(".split")
+function textAnimation(){
+    const splitTypes = document.querySelectorAll(".split")
    splitTypes.forEach((char,i) => {
     const text = new SplitType(char, {types: 'chars'})
 
@@ -258,13 +287,7 @@ const splitTypes = document.querySelectorAll(".split")
     })
    })
 
-
-
-
-
-})
-
-
+}
 
 
 
